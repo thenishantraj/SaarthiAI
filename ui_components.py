@@ -392,36 +392,63 @@ def render_sidebar():
     """Render the navigation sidebar"""
     
     with st.sidebar:
-        st.markdown(f"### 👋 Welcome, {st.session_state.username}!")
+        # User greeting with custom styling
+        st.markdown(f"""
+        <div style='text-align: center; padding: 10px;'>
+            <div style='font-size: 50px;'>🎓</div>
+            <h3 style='color: #00d4ff; margin: 0;'>Welcome,</h3>
+            <p style='color: #ffffff; font-size: 18px; font-weight: 600;'>{st.session_state.username}!</p>
+        </div>
+        """, unsafe_allow_html=True)
         
-        # Theme switcher
-        theme = st.selectbox("🎨 Theme", ["Dark", "Light"], index=0)
+        st.markdown("---")
+        
+        # Theme switcher with custom styling
+        st.markdown("<p style='color: #00d4ff;'>🎨 Theme</p>", unsafe_allow_html=True)
+        theme = st.selectbox("", ["Dark", "Light"], label_visibility="collapsed")
         if theme == "Light":
             apply_custom_theme("light")
         
         st.markdown("---")
         
-        # Navigation
+        # Navigation with custom styling
+        st.markdown("<p style='color: #00d4ff;'>🧭 Navigation</p>", unsafe_allow_html=True)
         page = st.radio(
-            "Navigation",
+            "",
             ["📊 Dashboard", "🎓 Study Room (AI Mentor)", "🔥 Progress Heatmap", "👤 Profile"],
-            key="navigation"
+            label_visibility="collapsed"
         )
         
         st.markdown("---")
         
-        # Quick stats
-        st.markdown("### 📊 Quick Stats")
+        # Quick stats with custom styling
+        st.markdown("<p style='color: #00d4ff;'>📊 Quick Stats</p>", unsafe_allow_html=True)
         progress = db.get_user_progress(st.session_state.user_id)
         if progress:
             topics_studied = len(progress)
             avg_mastery = sum(p[1] for p in progress) / topics_studied
-            st.metric("Topics Studied", topics_studied)
-            st.metric("Average Mastery", f"{avg_mastery:.1f}%")
+            
+            # Metric cards
+            col1, col2 = st.columns(2)
+            with col1:
+                st.markdown(f"""
+                <div style='background: #16213e; padding: 10px; border-radius: 10px; border: 1px solid #00d4ff; text-align: center;'>
+                    <p style='color: #00d4ff; margin: 0; font-size: 12px;'>Topics</p>
+                    <p style='color: #ffffff; margin: 0; font-size: 24px; font-weight: 600;'>{topics_studied}</p>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            with col2:
+                st.markdown(f"""
+                <div style='background: #16213e; padding: 10px; border-radius: 10px; border: 1px solid #00d4ff; text-align: center;'>
+                    <p style='color: #00d4ff; margin: 0; font-size: 12px;'>Mastery</p>
+                    <p style='color: #ffffff; margin: 0; font-size: 24px; font-weight: 600;'>{avg_mastery:.1f}%</p>
+                </div>
+                """, unsafe_allow_html=True)
         
         st.markdown("---")
         
-        # Logout button
+        # Logout button with custom styling
         if st.button("🚪 Logout", use_container_width=True):
             for key in ['authenticated', 'user_id', 'username', 'mentor']:
                 if key in st.session_state:
@@ -431,12 +458,12 @@ def render_sidebar():
         # Footer in sidebar
         st.markdown("---")
         st.markdown("""
-        <div class="social-icons">
-            <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+        <div style='text-align: center;'>
+            <a href="#" style='color: #00d4ff; font-size: 24px; margin: 0 10px;'><i class="fab fa-linkedin"></i></a>
+            <a href="#" style='color: #00d4ff; font-size: 24px; margin: 0 10px;'><i class="fab fa-instagram"></i></a>
+            <a href="#" style='color: #00d4ff; font-size: 24px; margin: 0 10px;'><i class="fab fa-github"></i></a>
+            <p style='color: #ffffff; margin-top: 10px;'>Made with ❤️ by Nishant</p>
         </div>
-        <p style="text-align: center; margin-top: 10px;">Made with ❤️ by Nishant</p>
         """, unsafe_allow_html=True)
         
         return page.split(" ", 1)[1]  # Remove emoji and return page name
