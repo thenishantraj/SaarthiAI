@@ -2,7 +2,6 @@ streamlit
 google-generativeai
 plotly
 pandas
-sqlite3
 python-dotenv
 seaborn
 matplotlib
