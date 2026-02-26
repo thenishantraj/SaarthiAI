@@ -2,18 +2,14 @@ import streamlit as st
 import os
 from dotenv import load_dotenv
 import google.generativeai as genai
-
-# Import custom modules
 import database as db
 import auth
 import ui_components as ui
 from ai_engine import SocraticMentor, get_rubric_feedback
 import utils
 
-# Load environment variables
 load_dotenv()
 
-# Page configuration
 st.set_page_config(
     page_title="Saarthi AI - Thinking Coach",
     page_icon="🎓",
@@ -21,18 +17,18 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Initialize database
+
 db.init_database()
 
-# Initialize session state
+
 utils.initialize_session_state()
 
-# Apply dark theme by default
+
 ui.apply_custom_theme("dark")
 
-# Main app logic
+
 def main():
-    # Check if user is authenticated
+   
     if not st.session_state.authenticated:
         # Show login/signup page
         col1, col2, col3 = st.columns([1, 2, 1])
