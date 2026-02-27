@@ -236,7 +236,7 @@ def render_rubric_mode():
         if st.button("Get Feedback", type="primary", use_container_width=True):
             st.session_state.rubric_mode = True
     
-    # Text input
+    # Input as Text
     text_input = st.text_area(
         "Paste your essay or code here:",
         height=300,
@@ -251,7 +251,7 @@ def render_rubric_mode():
             # Get feedback prompt
             prompt = get_rubric_feedback(text_input, text_type)
             
-            # Get response from Gemini
+            # Get response
             api_key = os.getenv("GEMINI_API_KEY")
             if api_key:
                 genai.configure(api_key=api_key)
