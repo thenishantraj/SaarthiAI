@@ -208,14 +208,14 @@ def render_socratic_mode():
                 )
                 st.session_state.doubt_score = doubt_score
             
-            # Display AI response
+            # Display response
             st.markdown(f"""
             <div class="assistant-message">
                 <b>Mentor:</b> {response}
             </div>
             """, unsafe_allow_html=True)
             
-            # Force refresh
+            # refresh
             st.rerun()
 
 def render_rubric_mode():
@@ -319,7 +319,7 @@ def render_progress():
     )
     
     # Study streak
-    st.markdown("### 🔥 Study Streak")
+    st.markdown("###  Study Streak")
     
     # Get chat history for streak calculation
     chat_history = db.get_chat_history(st.session_state.user_id)
